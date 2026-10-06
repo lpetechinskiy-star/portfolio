@@ -548,7 +548,6 @@ a.channel:hover .channel__value { color: var(--c); }
 }
 .arrow svg { width: 40%; height: 40%; }
 a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: var(--ink); transform: rotate(-45deg); }
-.copy { font: inherit; }
 .copy[data-done] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
 
 .foot {
@@ -559,6 +558,61 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
   margin-top: clamp(60px, 8vw, 120px);
   color: var(--mute);
 }
+.foot a { color: var(--paper); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; transition: text-decoration-color .3s, color .3s; }
+.foot a:hover { color: var(--c); text-decoration-color: var(--c); }
+
+/* ---------- Политика конфиденциальности ---------- */
+.policy {
+  width: min(760px, calc(100% - 32px));
+  max-height: min(86vh, 900px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--ink-2);
+  color: var(--paper);
+  box-shadow: 0 40px 120px -30px rgba(0, 0, 0, .9), 0 0 120px -60px var(--c);
+  overscroll-behavior: contain;
+}
+.policy::backdrop { background: rgba(6, 7, 9, .72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.policy[open] { animation: pop .45s var(--ease); }
+@keyframes pop { from { opacity: 0; transform: translateY(24px) scale(.98); } }
+.policy__head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: clamp(22px, 4vw, 36px) clamp(20px, 4vw, 40px) 18px;
+  background: linear-gradient(var(--ink-2) 80%, transparent);
+}
+.policy__head > div { min-width: 0; }
+.policy__head h2 { margin: 0; font-size: clamp(22px, 5.6vw, 44px); overflow-wrap: break-word; line-height: 1; font-weight: 760; letter-spacing: -.035em; }
+.policy__head .mono { display: block; margin-top: 12px; color: var(--mute); }
+.policy__close {
+  flex: none;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--paper);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background .3s, border-color .3s, color .3s, transform .5s var(--ease);
+}
+.policy__close:hover { background: var(--c); border-color: var(--c); color: var(--ink); transform: rotate(90deg); }
+.policy__close svg { width: 18px; height: 18px; }
+.policy__body { padding: 0 clamp(20px, 4vw, 40px) clamp(28px, 4vw, 40px); font-size: 16px; color: color-mix(in oklab, var(--paper) 84%, var(--ink)); }
+.policy__body h3 { margin: 28px 0 8px; font-family: var(--f-display); font-variation-settings: "SHRP" 100; font-size: 20px; font-weight: 650; letter-spacing: -.01em; color: var(--paper); }
+.policy__body p, .policy__body ul { margin: 0 0 10px; max-width: 62ch; }
+.policy__body ul { padding-left: 1.2em; }
+.policy__body li { margin-bottom: 6px; }
+.policy__body li::marker { color: var(--c); }
+.policy__body a { color: var(--paper); text-underline-offset: 3px; }
+body.is-locked { overflow: hidden; }
 
 /* ---------- Курсор ---------- */
 .cursor {
@@ -826,10 +880,60 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
     </div>
     <footer class="foot mono">
       <span>© 2026 Леонид Петечинский</span>
+      <a href="#privacy" id="privacyLink">Политика конфиденциальности</a>
       <span>Этот сайт собран вручную, как и работы выше</span>
     </footer>
   </section>
 </main>
+
+<dialog class="policy" id="privacy" aria-labelledby="privacy-title">
+  <div class="policy__head">
+    <div>
+      <h2 id="privacy-title" class="display">Политика конфиденциальности</h2>
+      <span class="mono">Редакция от 6 октября 2026</span>
+    </div>
+    <button class="policy__close" type="button" id="privacyClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="policy__body">
+    <p>Этот документ объясняет, какие данные обрабатываются, когда вы пользуетесь сайтом-портфолио Леонида Петечинского (далее «сайт») и связываетесь со мной, и как я с ними обращаюсь.</p>
+
+    <h3>Кто обрабатывает данные</h3>
+    <p>Леонид Петечинский, разработчик сайтов. По всем вопросам о ваших данных пишите на почту l.petechinskiy@gmail.com или в Telegram @leompi.</p>
+
+    <h3>Какие данные я получаю</h3>
+    <p>На сайте нет форм, регистрации, рекламных трекеров и систем аналитики. Сам сайт не собирает и не хранит ваши персональные данные.</p>
+    <p>Я получаю только то, что вы сами отправляете мне, когда пишете в Telegram или на почту:</p>
+    <ul>
+      <li>имя или никнейм;</li>
+      <li>контакт для связи: аккаунт Telegram, адрес электронной почты или телефон, если вы его укажете;</li>
+      <li>описание проекта и файлы, которые вы прикладываете к сообщению.</li>
+    </ul>
+
+    <h3>Зачем они нужны</h3>
+    <ul>
+      <li>чтобы ответить на ваше сообщение;</li>
+      <li>чтобы обсудить проект, подготовить предложение и сроки;</li>
+      <li>чтобы выполнить работу, если мы договоримся о сотрудничестве.</li>
+    </ul>
+    <p>Я не использую ваши данные для рассылок и рекламы и не продаю их.</p>
+
+    <h3>Кому они передаются</h3>
+    <p>Я не передаю ваши данные третьим лицам, кроме случаев, когда этого требует закон. Переписка хранится в сервисах, через которые вы мне пишете (Telegram, почтовый сервис), и подчиняется их правилам.</p>
+
+    <h3>Технические данные</h3>
+    <p>Сайт размещён на GitHub Pages и использует шрифты Google Fonts. При открытии страницы ваш браузер обращается к серверам этих сервисов, и они могут получать технические данные: IP-адрес, тип браузера и устройства, время запроса. Я к этим данным доступа не имею. Подробнее в политиках конфиденциальности GitHub и Google.</p>
+    <p>Сайт не устанавливает собственных cookie-файлов.</p>
+
+    <h3>Сколько хранятся данные</h3>
+    <p>Переписку и материалы проекта я храню, пока мы общаемся и работаем вместе, и после завершения работы, пока это нужно для гарантийных правок. Вы можете в любой момент попросить удалить их.</p>
+
+    <h3>Ваши права</h3>
+    <p>Вы можете узнать, какие ваши данные у меня есть, попросить их исправить или удалить, а также отозвать согласие на обработку. Для этого напишите на l.petechinskiy@gmail.com. Я отвечу в течение 10 рабочих дней.</p>
+
+    <h3>Изменения политики</h3>
+    <p>Если политика изменится, новая редакция появится на этой странице с новой датой.</p>
+  </div>
+</dialog>
 
 <script>
 (() => {
@@ -975,6 +1079,22 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
       requestAnimationFrame(move);
     })();
   }
+
+  /* Политика конфиденциальности в окне */
+  const dlg = document.getElementById('privacy');
+  const openPolicy = e => {
+    if (e) e.preventDefault();
+    if (dlg.open) return;
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    document.body.classList.add('is-locked');
+    dlg.scrollTop = 0;
+  };
+  const closePolicy = () => { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); };
+  document.getElementById('privacyLink').addEventListener('click', openPolicy);
+  document.getElementById('privacyClose').addEventListener('click', closePolicy);
+  dlg.addEventListener('close', () => document.body.classList.remove('is-locked'));
+  dlg.addEventListener('click', e => { if (e.target === dlg) closePolicy(); });
+  if (location.hash === '#privacy') openPolicy();
 
   /* Копирование почты */
   const btn = document.getElementById('copyEmail');
