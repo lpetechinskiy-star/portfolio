@@ -9,6 +9,9 @@
 <meta property="og:description" content="Сайты для бизнеса и брендов. С характером, анимацией и вниманием к телефону.">
 <meta property="og:image" content="assets/shots/litenergles-cover.jpg">
 <meta name="theme-color" content="#0c0d10">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:slnt,wght,CRSV,SHRP@-12..0,100..900,0..1,0..100&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -246,16 +249,48 @@ a { color: inherit; }
 
 /* ---------- Бегущая строка ---------- */
 .ticker {
-  margin-top: clamp(48px, 6vw, 88px);
-  border-block: 1px solid var(--line);
+  margin-top: clamp(56px, 7vw, 104px);
+  margin-inline: calc(50% - 50vw);
   overflow: hidden;
   white-space: nowrap;
-  color: var(--mute);
+  font-family: var(--f-display);
+  font-size: clamp(40px, 6.4vw, 104px);
+  line-height: 1;
+  letter-spacing: -.04em;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.ticker__track { display: inline-flex; gap: 40px; padding-block: 18px; animation: ticker 40s linear infinite; }
-.ticker__track span { display: inline-flex; align-items: center; gap: 40px; }
-.ticker__track span::after { content: ""; width: 5px; height: 5px; background: var(--c); border-radius: 50%; }
-@keyframes ticker { to { transform: translateX(-50%); } }
+.ticker__track {
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+  padding-block: .2em;
+  will-change: transform;
+}
+.tk { display: inline-block; transform: skewX(var(--skew, 0deg)); transition: color .4s; }
+.tk--bold { font-weight: 820; font-variation-settings: "SHRP" 100; color: var(--paper); }
+.tk--thin { font-weight: 250; font-variation-settings: "SHRP" 100, "slnt" -12; color: var(--c); }
+.tk--line {
+  font-weight: 820;
+  font-variation-settings: "SHRP" 100;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in oklab, var(--paper) 55%, transparent);
+}
+.tk-pic {
+  display: inline-block;
+  flex: none;
+  width: 1.5em;
+  height: .82em;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--ink-3);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .1);
+  transform: rotate(var(--r, -6deg));
+  transition: transform .5s var(--ease), width .5s var(--ease);
+}
+.tk-pic:nth-child(4n) { --r: 5deg; }
+.tk-pic img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.ticker:hover .tk-pic { width: 2.1em; transform: rotate(0deg); }
 
 /* ---------- Заголовки разделов ---------- */
 .section { padding-block: clamp(80px, 11vw, 160px) 0; }
@@ -642,10 +677,10 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
       </div>
     </div>
 
-    <div class="ticker mono" aria-hidden="true">
-      <div class="ticker__track">
-        <span>Лендинги</span><span>Промо-сайты</span><span>Сайты для бизнеса</span><span>Анимация на скролле</span><span>3D и WebGL</span><span>Адаптив под телефон</span><span>React</span><span>GSAP</span><span>Three.js</span>
-        <span>Лендинги</span><span>Промо-сайты</span><span>Сайты для бизнеса</span><span>Анимация на скролле</span><span>3D и WebGL</span><span>Адаптив под телефон</span><span>React</span><span>GSAP</span><span>Three.js</span>
+    <div class="ticker" id="ticker" aria-hidden="true">
+      <div class="ticker__track" id="tickerTrack">
+        <span class="tk tk--bold">Лендинги</span><span class="tk-pic"><img src="assets/shots/chugun-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--thin">промо</span><span class="tk-pic"><img src="assets/shots/litenergles-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--line">сайты для бизнеса</span><span class="tk-pic"><img src="assets/shots/elane-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--bold">анимация</span><span class="tk-pic"><img src="assets/shots/noir-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--thin">3D</span><span class="tk-pic"><img src="assets/shots/stomatologiya-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--line">адаптив</span><span class="tk-pic"><img src="assets/shots/chugun-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span>
+        <span class="tk tk--bold">Лендинги</span><span class="tk-pic"><img src="assets/shots/chugun-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--thin">промо</span><span class="tk-pic"><img src="assets/shots/litenergles-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--line">сайты для бизнеса</span><span class="tk-pic"><img src="assets/shots/elane-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--bold">анимация</span><span class="tk-pic"><img src="assets/shots/noir-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--thin">3D</span><span class="tk-pic"><img src="assets/shots/stomatologiya-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span><span class="tk tk--line">адаптив</span><span class="tk-pic"><img src="assets/shots/chugun-cover.jpg" alt="" loading="lazy" width="1200" height="750"></span>
       </div>
     </div>
   </section>
@@ -855,6 +890,37 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
       stage.style.transform = `perspective(1400px) rotateY(${cx.toFixed(2)}deg) rotateX(${cy.toFixed(2)}deg)`;
       requestAnimationFrame(tilt);
     })();
+  }
+
+  /* Бегущая строка: едет сама, ускоряется и меняет направление от прокрутки */
+  const tTrack = document.getElementById('tickerTrack');
+  const tWords = tTrack.querySelectorAll('.tk');
+  if (!reduce) {
+    let x = 0, dir = -1, boost = 0, lastY = scrollY, prev = performance.now(), tOn = true, period = 0;
+    const kids = tTrack.children, half = kids.length / 2;
+    const measure = () => { period = kids[half].offsetLeft - kids[0].offsetLeft; };
+    measure();
+    addEventListener('resize', measure);
+    addEventListener('load', measure);
+    document.fonts && document.fonts.ready.then(measure);
+    addEventListener('scroll', () => {
+      const dy = scrollY - lastY; lastY = scrollY;
+      if (dy) dir = dy > 0 ? -1 : 1;
+      boost = Math.min(30, boost + Math.abs(dy) * .25);
+    }, { passive: true });
+    new IntersectionObserver(([en]) => { tOn = en.isIntersecting; }).observe(tTrack);
+    (function run(now) {
+      const dt = Math.min(.05, (now - prev) / 1000); prev = now;
+      boost *= .92;
+      if (tOn) {
+        x += dir * (60 + boost * 40) * dt;
+        if (period) { if (x <= -period) x += period; if (x > 0) x -= period; }
+        tTrack.style.transform = `translate3d(${x.toFixed(1)}px, 0, 0)`;
+        const skew = (-dir * Math.min(14, boost * .6)).toFixed(2) + 'deg';
+        tWords.forEach(w => w.style.setProperty('--skew', skew));
+      }
+      requestAnimationFrame(run);
+    })(prev);
   }
 
   /* Подсветка фона: на первом экране цвет передней карточки, ниже цвет работы в центре экрана */
