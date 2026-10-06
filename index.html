@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Портфолио leompi</title>
+<meta name="description" content="Разработка сайтов: лендинги, промо-сайты и сайты для бизнеса с анимацией и адаптивом. Работы: ЧУГУН, Litenergles, ÉLANE, NOIR, стоматология.">
+<meta property="og:title" content="Портфолио leompi">
+<meta property="og:description" content="Сайты для ресторанов, салонов, клиник и брендов. С характером, анимацией и вниманием к телефону.">
+<meta property="og:image" content="assets/shots/litenergles-cover.jpg">
+<meta name="theme-color" content="#0c0d10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:slnt,wght,CRSV,SHRP@-12..0,100..900,0..1,0..100&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: тёмная «витрина». Сам сайт монохромный, цвет приносит каждая работа: фон подсвечивается её цветом при прокрутке. */
+@property --c {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #b9b2a3;
+}
+:root {
+  --ink: #0c0d10;
+  --ink-2: #14161b;
+  --ink-3: #1d2027;
+  --paper: #ece9e2;
+  --mute: #8d909a;
+  --line: rgba(236, 233, 226, .12);
+  --c: #b9b2a3;
+
+  --f-display: "Geologica", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Golos Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1360px;
+  --ease: cubic-bezier(.2, .7, .1, 1);
+  color-scheme: dark;
+  transition: --c 1.1s ease;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+html, body { overflow-x: clip; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+::selection { background: var(--c); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--c); outline-offset: 4px; border-radius: 4px; }
+
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.mono {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.display {
+  font-family: var(--f-display);
+  font-variation-settings: "SHRP" 100, "CRSV" 0;
+  text-wrap: balance;
+}
+
+/* Подсветка фона цветом текущей работы */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60vmax 50vmax at 85% 8%, color-mix(in oklab, var(--c) 22%, transparent), transparent 70%),
+    radial-gradient(50vmax 40vmax at 0% 100%, color-mix(in oklab, var(--c) 12%, transparent), transparent 70%),
+    var(--ink);
+}
+
+/* ---------- Шапка ---------- */
+.top {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: linear-gradient(var(--ink) 0%, color-mix(in oklab, var(--ink) 70%, transparent) 70%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.top .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 72px;
+}
+.logo {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -.04em;
+  text-decoration: none;
+  font-variation-settings: "SHRP" 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo i {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 14px var(--c);
+}
+.nav { display: flex; align-items: center; gap: clamp(14px, 3vw, 36px); }
+.nav a { text-decoration: none; color: var(--mute); transition: color .25s; }
+.nav a:hover { color: var(--paper); }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: transparent;
+  cursor: pointer;
+  transition: background .3s, color .3s, border-color .3s;
+}
+.btn:hover { border-color: var(--paper); }
+.btn--solid { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.btn--solid:hover { background: var(--c); border-color: var(--c); color: var(--ink); }
+.nav .btn { color: var(--paper); padding: 10px 18px; }
+@media (max-width: 720px) {
+  .nav .hide-s { display: none; }
+}
+
+/* ---------- Первый экран ---------- */
+.hero { padding-top: calc(120px + env(safe-area-inset-top, 0px)); padding-bottom: 40px; }
+.hero__eyebrow { display: flex; flex-wrap: wrap; gap: 10px 28px; color: var(--mute); }
+.status { display: inline-flex; align-items: center; gap: 10px; color: var(--paper); }
+.status::before {
+  content: "";
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #5ad08a;
+  box-shadow: 0 0 0 0 rgba(90, 208, 138, .6);
+  animation: ping 2.4s infinite;
+}
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(90, 208, 138, .55); } 70%, 100% { box-shadow: 0 0 0 10px rgba(90, 208, 138, 0); } }
+
+.hero { --h1: clamp(38px, 9.4vw, 150px); }
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 40px;
+  align-items: start;
+}
+.hero h1 {
+  grid-area: 1 / 1 / 2 / 3;
+  position: relative;
+  z-index: 2;
+  margin: 28px 0 0;
+  font-size: var(--h1);
+  line-height: .93;
+  font-weight: 780;
+  letter-spacing: -.045em;
+}
+.hero h1 .line { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero h1 .w {
+  display: inline-block;
+  animation: rise 1.1s var(--ease) both;
+  animation-delay: calc(var(--i) * 90ms + 100ms);
+}
+.hero h1 em {
+  font-style: normal;
+  font-variation-settings: "SHRP" 100, "slnt" -12;
+  font-weight: 300;
+  color: var(--c);
+}
+@keyframes rise {
+  from { transform: translateY(.9em) rotate(4deg); opacity: .1; font-weight: 200; }
+  to { transform: none; opacity: 1; }
+}
+
+.hero__row { grid-area: 2 / 1 / 3 / 2; margin-top: clamp(28px, 4vw, 56px); }
+.hero__lead { max-width: 30em; color: color-mix(in oklab, var(--paper) 82%, var(--ink)); font-size: clamp(17px, 1.4vw, 19px); margin: 0; }
+.hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+/* Веер из работ */
+.deck {
+  grid-area: 1 / 2 / 3 / 3;
+  margin-top: calc(28px + var(--h1) * .93 + 10px);
+  position: relative;
+  height: clamp(300px, 32vw, 460px);
+  perspective: 1400px;
+}
+.deck__stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform .2s linear;
+}
+.card {
+  --x: 0px; --y: 0px; --r: 0deg; --lift: 0px; --s: 1;
+  position: absolute;
+  left: 50%; top: 50%;
+  width: min(56%, 440px);
+  aspect-ratio: 16 / 10.6;
+  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ink-3);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08);
+  transform: translate(-50%, -50%) translate3d(var(--x), calc(var(--y) + var(--lift)), 0) rotate(var(--r)) scale(var(--s));
+  transition: transform .9s var(--ease), box-shadow .4s;
+  text-decoration: none;
+  display: block;
+}
+.card__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding-inline: 10px;
+  background: #1a1c22;
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+}
+.card__bar span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, .18); }
+.card__bar b {
+  margin-left: 8px;
+  font: 500 10px/1 var(--f-mono);
+  color: var(--mute);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card img { width: 100%; height: calc(100% - 22px); object-fit: cover; object-position: top; }
+.card:hover, .card:focus-visible { --lift: -34px; --s: 1.04; z-index: 30 !important; box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .8), 0 0 0 1px var(--c), 0 0 60px -10px var(--c); }
+.deck.stacked .card { --x: 0px !important; --y: 50px !important; --r: 0deg !important; transition: none; }
+
+/* ---------- Бегущая строка ---------- */
+.ticker {
+  margin-top: clamp(48px, 6vw, 88px);
+  border-block: 1px solid var(--line);
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--mute);
+}
+.ticker__track { display: inline-flex; gap: 40px; padding-block: 18px; animation: ticker 40s linear infinite; }
+.ticker__track span { display: inline-flex; align-items: center; gap: 40px; }
+.ticker__track span::after { content: ""; width: 5px; height: 5px; background: var(--c); border-radius: 50%; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* ---------- Заголовки разделов ---------- */
+.section { padding-block: clamp(80px, 11vw, 160px) 0; }
+.section__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px 40px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+.section__head h2 {
+  margin: 0;
+  font-size: clamp(44px, 8vw, 120px);
+  line-height: .9;
+  font-weight: 760;
+  letter-spacing: -.045em;
+}
+.section__head h2 sup {
+  font: 500 clamp(13px, 1.2vw, 16px)/1 var(--f-mono);
+  letter-spacing: .04em;
+  color: var(--c);
+  vertical-align: top;
+  margin-left: .4em;
+}
+.section__head p { margin: 0; max-width: 26em; color: var(--mute); }
+
+/* ---------- Работы ---------- */
+.works { display: grid; gap: clamp(90px, 12vw, 180px); }
+.work {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: start;
+}
+.work:nth-child(even) { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+.work:nth-child(even) .work__info { order: 2; }
+.work__info { position: sticky; top: 110px; display: grid; gap: 20px; min-width: 0; }
+.work__type { color: var(--c); display: flex; align-items: center; gap: 12px; }
+.work__type::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+.work__name {
+  margin: 0;
+  font-size: clamp(38px, 4vw, 64px);
+  line-height: .95;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  overflow-wrap: break-word;
+}
+.work__desc { margin: 0; color: color-mix(in oklab, var(--paper) 78%, var(--ink)); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.tags li {
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+  line-height: 1.2;
+  color: color-mix(in oklab, var(--paper) 85%, var(--ink));
+}
+.spec {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 18px;
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--mute);
+}
+.spec dt { color: var(--mute); }
+.spec dd { margin: 0; color: var(--paper); text-transform: none; letter-spacing: .02em; }
+.work__link { justify-self: start; }
+.work__link:hover { background: var(--c); border-color: var(--c); color: var(--ink); }
+
+.shot { position: relative; min-width: 0; }
+.browser {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ink-2);
+  box-shadow: 0 50px 100px -40px rgba(0, 0, 0, .85), 0 0 0 1px rgba(255, 255, 255, .08), 0 0 120px -50px var(--c);
+  display: block;
+  text-decoration: none;
+  transition: box-shadow .5s, transform .6s var(--ease);
+}
+.browser:hover { box-shadow: 0 50px 100px -40px rgba(0, 0, 0, .85), 0 0 0 1px color-mix(in oklab, var(--c) 60%, transparent), 0 0 160px -40px var(--c); }
+.browser__bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 40px;
+  padding-inline: 16px;
+  background: #181a20;
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+}
+.browser__dots { display: flex; gap: 6px; }
+.browser__dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .16); }
+.browser__url {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .05);
+  font: 400 11px/1 var(--f-mono);
+  color: var(--mute);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.browser__hint { font: 500 11px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); white-space: nowrap; }
+.viewport { position: relative; aspect-ratio: 16 / 10; overflow: hidden; max-width: 100%; }
+.viewport img {
+  width: 100%;
+  height: auto;
+  transform: translateY(0);
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(.45, .05, .35, 1);
+  transition-duration: 1.2s;
+  will-change: transform;
+}
+.viewport::after {
+  content: "";
+  position: absolute;
+  right: 8px; top: 10px; bottom: 10px;
+  width: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, .08);
+}
+.progress {
+  position: absolute;
+  right: 8px; top: 10px;
+  width: 3px; height: 18%;
+  border-radius: 3px;
+  background: var(--c);
+  z-index: 2;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(.45, .05, .35, 1);
+  transition-duration: 1.2s;
+}
+
+.phone {
+  position: absolute;
+  width: clamp(110px, 15%, 170px);
+  aspect-ratio: 390 / 844;
+  right: -28px;
+  bottom: -56px;
+  border-radius: 22px;
+  padding: 6px;
+  background: #0a0b0d;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .9), 0 0 0 1px rgba(255, 255, 255, .12);
+  transform: rotate(4deg);
+  transition: transform .8s var(--ease);
+  pointer-events: none;
+}
+.work:nth-child(even) .phone { right: auto; left: -28px; transform: rotate(-4deg); }
+.phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 17px; }
+.shot:hover .phone { transform: rotate(0deg) translateY(-12px); }
+
+/* ---------- Что делаю ---------- */
+.services { border-top: 1px solid var(--line); }
+.service {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr) auto;
+  gap: 16px 40px;
+  align-items: baseline;
+  padding-block: clamp(26px, 3.4vw, 44px);
+  border-bottom: 1px solid var(--line);
+  transition: padding .5s var(--ease);
+}
+.service h3 {
+  margin: 0;
+  font-size: clamp(26px, 3.4vw, 48px);
+  line-height: 1;
+  font-weight: 650;
+  letter-spacing: -.03em;
+  transition: color .4s, font-variation-settings .5s, font-weight .5s;
+}
+.service p { margin: 0; color: var(--mute); max-width: 34em; }
+.service .mono { color: var(--mute); }
+.service:hover h3 { color: var(--c); font-weight: 820; font-variation-settings: "SHRP" 100, "slnt" -8; }
+
+/* ---------- Как работаю ---------- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
+  margin: 0; padding: 0; list-style: none;
+  counter-reset: step;
+}
+.steps li {
+  counter-increment: step;
+  padding: 28px 28px 8px 0;
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+.steps li + li { padding-left: 28px; border-left: 1px solid var(--line); }
+.steps li::before {
+  content: "Шаг " counter(step);
+  font: 500 12px/1 var(--f-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--c);
+}
+.steps h3 { margin: 0; font-family: var(--f-display); font-variation-settings: "SHRP" 100; font-size: 26px; line-height: 1.1; font-weight: 650; letter-spacing: -.02em; }
+.steps p { margin: 0; color: var(--mute); font-size: 16px; }
+
+/* ---------- Контакты ---------- */
+.contact { padding-block: clamp(100px, 13vw, 200px) clamp(40px, 5vw, 64px); }
+.contact__title {
+  margin: 0 0 clamp(36px, 5vw, 64px);
+  font-size: clamp(48px, 11vw, 176px);
+  line-height: .9;
+  font-weight: 800;
+  letter-spacing: -.05em;
+}
+.contact__title em { font-style: normal; font-weight: 300; font-variation-settings: "SHRP" 100, "slnt" -12; color: var(--c); }
+.channels { display: grid; border-top: 1px solid var(--line); }
+.channel {
+  display: grid;
+  grid-template-columns: minmax(110px, 2fr) minmax(0, 7fr) auto;
+  gap: 12px 32px;
+  align-items: center;
+  padding-block: clamp(20px, 3vw, 34px);
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  position: relative;
+}
+.channel .mono { color: var(--mute); }
+.channel__value {
+  font-family: var(--f-display);
+  font-variation-settings: "SHRP" 100;
+  font-size: clamp(24px, 4.4vw, 64px);
+  font-weight: 600;
+  letter-spacing: -.03em;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  transition: color .3s;
+  user-select: all;
+}
+a.channel:hover .channel__value { color: var(--c); }
+.arrow {
+  width: clamp(44px, 5vw, 64px);
+  height: clamp(44px, 5vw, 64px);
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  transition: background .3s, border-color .3s, transform .5s var(--ease);
+}
+.arrow svg { width: 40%; height: 40%; }
+a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: var(--ink); transform: rotate(-45deg); }
+.copy { font: inherit; }
+.copy[data-done] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: clamp(60px, 8vw, 120px);
+  color: var(--mute);
+}
+
+/* ---------- Курсор ---------- */
+.cursor {
+  position: fixed;
+  left: 0; top: 0;
+  z-index: 100;
+  width: 14px; height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--paper);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  transition: width .35s var(--ease), height .35s var(--ease), margin .35s var(--ease), background .35s;
+  opacity: 0;
+}
+.cursor span {
+  font: 500 11px/1.2 var(--f-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0;
+  text-align: center;
+  transition: opacity .2s;
+}
+.cursor.is-on { opacity: 1; }
+.cursor.is-big { width: 96px; height: 96px; margin: -48px 0 0 -48px; mix-blend-mode: normal; background: var(--c); }
+.cursor.is-big span { opacity: 1; }
+@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 960px) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .hero h1 { grid-area: auto; }
+  .hero__row { grid-area: auto; }
+  .deck { grid-area: auto; margin-top: 40px; height: clamp(240px, 58vw, 420px); }
+  .card { width: min(60%, 400px); }
+  .work, .work:nth-child(even) { grid-template-columns: minmax(0, 1fr); }
+  .work:nth-child(even) .work__info { order: 0; }
+  .work__info { position: static; }
+  .phone { right: -8px; bottom: -40px; }
+  .work:nth-child(even) .phone { left: auto; right: -8px; transform: rotate(4deg); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps li:nth-child(3) { padding-left: 0; border-left: 0; }
+  .steps li:nth-child(n+3) { border-top: 1px solid var(--line); margin-top: 20px; }
+  .service { grid-template-columns: minmax(0, 1fr); }
+  .service .mono { order: -1; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .browser__hint { display: none; }
+  .phone { width: 92px; border-radius: 16px; padding: 4px; bottom: -34px; right: -4px; }
+  .phone img { border-radius: 12px; }
+  .work:nth-child(even) .phone { right: -4px; }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .steps li, .steps li + li { padding: 24px 0 4px; border-left: 0; }
+  .steps li + li { border-top: 1px solid var(--line); margin-top: 16px; }
+  .channel { grid-template-columns: minmax(0, 1fr) auto; }
+  .channel .mono { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span>Открыть</span></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="leompi, наверх"><i></i>leompi</a>
+    <nav class="nav" aria-label="Разделы">
+      <a class="hide-s" href="#works">Работы</a>
+      <a class="hide-s" href="#services">Услуги</a>
+      <a class="hide-s" href="#process">Процесс</a>
+      <a class="btn" href="#contact">Связаться</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="hero__eyebrow mono">
+      <span>Разработка сайтов</span>
+      <span class="status">Принимаю заказы</span>
+    </div>
+    <div class="hero__grid">
+    <h1 id="hero-title" class="display">
+      <span class="line"><span class="w" style="--i:0">Сайты,</span> <span class="w" style="--i:1">которые</span></span>
+      <span class="line"><span class="w" style="--i:2">листают</span></span>
+      <span class="line"><span class="w" style="--i:3"><em>до</em></span> <span class="w" style="--i:4"><em>футера.</em></span></span>
+    </h1>
+
+    <div class="hero__row">
+      <div>
+        <p class="hero__lead">Проектирую и разрабатываю сайты для ресторанов, салонов, клиник и брендов. С характером, живой анимацией и аккуратной версией для телефона.</p>
+        <div class="hero__cta">
+          <a class="btn btn--solid" href="#works">Смотреть работы</a>
+          <a class="btn" href="https://t.me/leompi" target="_blank" rel="noopener">Написать в Telegram</a>
+        </div>
+      </div>
+    </div>
+
+      <div class="deck" id="deck">
+        <div class="deck__stage" id="deckStage">
+          <a class="card" href="#w-chugun" data-c="#e8732c" style="--x:-44%;--y:34px;--r:-14deg"><div class="card__bar"><span></span><span></span><span></span><b>ЧУГУН — стейк-хаус</b></div><img src="assets/shots/chugun-cover.jpg" alt="Первый экран сайта стейк-хауса ЧУГУН" width="1200" height="750"></a>
+          <a class="card" href="#w-elane" data-c="#c98aa2" style="--x:-22%;--y:10px;--r:-7deg"><div class="card__bar"><span></span><span></span><span></span><b>ÉLANE — салон красоты</b></div><img src="assets/shots/elane-cover.jpg" alt="Первый экран сайта салона красоты ÉLANE" width="1200" height="750"></a>
+          <a class="card" href="#w-noir" data-c="#c49a5a" style="--x:22%;--y:10px;--r:7deg"><div class="card__bar"><span></span><span></span><span></span><b>NOIR — барбершопы</b></div><img src="assets/shots/noir-cover.jpg" alt="Первый экран сайта сети барбершопов NOIR" width="1200" height="750"></a>
+          <a class="card" href="#w-dent" data-c="#9d8cf2" style="--x:44%;--y:34px;--r:14deg"><div class="card__bar"><span></span><span></span><span></span><b>Стоматология</b></div><img src="assets/shots/stomatologiya-cover.jpg" alt="Первый экран сайта стоматологии" width="1200" height="750"></a>
+          <a class="card" href="#w-lit" data-c="#e0263c" style="--x:0%;--y:0px;--r:0deg;z-index:10"><div class="card__bar"><span></span><span></span><span></span><b>Litenergles — гипербола вкуса</b></div><img src="assets/shots/litenergles-cover.jpg" alt="Первый экран промо-сайта чипсов Litenergles" width="1200" height="750"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticker mono" aria-hidden="true">
+      <div class="ticker__track">
+        <span>Лендинги</span><span>Промо-сайты</span><span>Сайты для бизнеса</span><span>Анимация на скролле</span><span>3D и WebGL</span><span>Адаптив под телефон</span><span>React</span><span>GSAP</span><span>Three.js</span>
+        <span>Лендинги</span><span>Промо-сайты</span><span>Сайты для бизнеса</span><span>Анимация на скролле</span><span>3D и WebGL</span><span>Адаптив под телефон</span><span>React</span><span>GSAP</span><span>Three.js</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="works" aria-labelledby="works-title">
+    <div class="section__head">
+      <h2 id="works-title" class="display">Работы<sup>05</sup></h2>
+      <p>Наведите курсор на окно браузера, и сайт пролистается сам. По клику откроется живая версия.</p>
+    </div>
+
+    <div class="works">
+      <article class="work" id="w-chugun" data-c="#e8732c">
+        <div class="work__info">
+          <div class="work__type mono">Ресторан · Москва</div>
+          <h3 class="work__name display">ЧУГУН</h3>
+          <p class="work__desc">Стейк-хаус на Патриарших. Тёмная тема с отсветом углей, крупная типографика, меню с вкладками, галерея и бронирование стола.</p>
+          <ul class="tags"><li>Живой фон на canvas</li><li>Меню по категориям</li><li>Онлайн-бронь</li><li>Галерея</li></ul>
+          <dl class="spec mono"><dt>Стек</dt><dd>HTML · CSS · GSAP · Canvas</dd><dt>Версии</dt><dd>Десктоп · телефон</dd></dl>
+          <a class="btn work__link" href="works/chugun.html" target="_blank" rel="noopener">Открыть сайт ↗</a>
+        </div>
+        <div class="shot">
+          <a class="browser" href="works/chugun.html" target="_blank" rel="noopener" data-cursor aria-label="Открыть сайт ЧУГУН">
+            <div class="browser__bar"><div class="browser__dots"><span></span><span></span><span></span></div><div class="browser__url">ЧУГУН — стейк-хаус на Патриарших</div><div class="browser__hint">Наведите</div></div>
+            <div class="viewport"><img src="assets/shots/chugun-page.jpg" alt="Сайт ЧУГУН целиком: первый экран, отрубы, меню, история, галерея, бар, банкеты, контакты" loading="lazy" width="900" height="6250"><i class="progress"></i></div>
+          </a>
+          <div class="phone"><img src="assets/shots/chugun-mobile.jpg" alt="" loading="lazy" width="390" height="844"></div>
+        </div>
+      </article>
+
+      <article class="work" id="w-lit" data-c="#e0263c">
+        <div class="work__info">
+          <div class="work__type mono">Промо-кампания · концепт</div>
+          <h3 class="work__name display">Litenergles</h3>
+          <p class="work__desc">Интерактивная кампания вымышленного бренда чипсов. Девять сцен на скролле: чипсы летят, складываются в слова и в гиперболический параболоид z = x² − y².</p>
+          <ul class="tags"><li>3D-сцены</li><li>Анимация на скролле</li><li>Интерактив мышью</li><li>9 сцен</li></ul>
+          <dl class="spec mono"><dt>Стек</dt><dd>React · Three.js · GSAP · Lenis</dd><dt>Версии</dt><dd>Десктоп · телефон</dd></dl>
+          <a class="btn work__link" href="works/litenergles.html" target="_blank" rel="noopener">Открыть сайт ↗</a>
+        </div>
+        <div class="shot">
+          <a class="browser" href="works/litenergles.html" target="_blank" rel="noopener" data-cursor aria-label="Открыть сайт Litenergles">
+            <div class="browser__bar"><div class="browser__dots"><span></span><span></span><span></span></div><div class="browser__url">Litenergles — Гипербола вкуса</div><div class="browser__hint">Наведите</div></div>
+            <div class="viewport"><img src="assets/shots/litenergles-page.jpg" alt="Раскадровка сайта Litenergles: сцены с летящими чипсами, формула, вкусы, история, финал" loading="lazy" width="900" height="5620"><i class="progress"></i></div>
+          </a>
+          <div class="phone"><img src="assets/shots/litenergles-mobile.jpg" alt="" loading="lazy" width="390" height="844"></div>
+        </div>
+      </article>
+
+      <article class="work" id="w-elane" data-c="#c98aa2">
+        <div class="work__info">
+          <div class="work__type mono">Салон красоты · Москва</div>
+          <h3 class="work__name display">ÉLANE</h3>
+          <p class="work__desc">Салон на Патриарших прудах. Редакционная типографика с антиквой, подробный прайс, команда мастеров, блок «до и после» и запись.</p>
+          <ul class="tags"><li>Прайс по категориям</li><li>До / после</li><li>Команда мастеров</li><li>Портфолио работ</li></ul>
+          <dl class="spec mono"><dt>Стек</dt><dd>HTML · CSS · GSAP</dd><dt>Версии</dt><dd>Десктоп · телефон</dd></dl>
+          <a class="btn work__link" href="works/elane.html" target="_blank" rel="noopener">Открыть сайт ↗</a>
+        </div>
+        <div class="shot">
+          <a class="browser" href="works/elane.html" target="_blank" rel="noopener" data-cursor aria-label="Открыть сайт ÉLANE">
+            <div class="browser__bar"><div class="browser__dots"><span></span><span></span><span></span></div><div class="browser__url">ÉLANE — салон красоты на Патриарших прудах</div><div class="browser__hint">Наведите</div></div>
+            <div class="viewport"><img src="assets/shots/elane-page.jpg" alt="Сайт ÉLANE целиком: первый экран, услуги, прайс, мастера, до и после, работы" loading="lazy" width="900" height="6563"><i class="progress"></i></div>
+          </a>
+          <div class="phone"><img src="assets/shots/elane-mobile.jpg" alt="" loading="lazy" width="390" height="844"></div>
+        </div>
+      </article>
+
+      <article class="work" id="w-noir" data-c="#c49a5a">
+        <div class="work__info">
+          <div class="work__type mono">Сеть барбершопов · 3 города</div>
+          <h3 class="work__name display">NOIR</h3>
+          <p class="work__desc">Барбершопы в Петербурге, Москве и Казани. Широкий гротеск на весь экран, каталог услуг с ценами, барберы, филиалы и запись онлайн.</p>
+          <ul class="tags"><li>6 филиалов</li><li>Услуги с ценами</li><li>Карточки мастеров</li><li>Отзывы</li></ul>
+          <dl class="spec mono"><dt>Стек</dt><dd>HTML · CSS · JS</dd><dt>Версии</dt><dd>Десктоп · телефон</dd></dl>
+          <a class="btn work__link" href="works/noir.html" target="_blank" rel="noopener">Открыть сайт ↗</a>
+        </div>
+        <div class="shot">
+          <a class="browser" href="works/noir.html" target="_blank" rel="noopener" data-cursor aria-label="Открыть сайт NOIR">
+            <div class="browser__bar"><div class="browser__dots"><span></span><span></span><span></span></div><div class="browser__url">NOIR — сеть барбершопов</div><div class="browser__hint">Наведите</div></div>
+            <div class="viewport"><img src="assets/shots/noir-page.jpg" alt="Сайт NOIR: первый экран и блок услуг с ценами" loading="lazy" width="900" height="2375"><i class="progress"></i></div>
+          </a>
+          <div class="phone"><img src="assets/shots/noir-mobile.jpg" alt="" loading="lazy" width="390" height="844"></div>
+        </div>
+      </article>
+
+      <article class="work" id="w-dent" data-c="#9d8cf2">
+        <div class="work__info">
+          <div class="work__type mono">Клиника · для всей семьи</div>
+          <h3 class="work__name display">Стоматология</h3>
+          <p class="work__desc">Сайт, который снимает страх перед врачом. Светлая палитра, анимированный зуб-маскот, услуги, врачи, цены, этапы лечения и ответы на частые вопросы.</p>
+          <ul class="tags"><li>Анимированный маскот</li><li>Прайс</li><li>Врачи</li><li>FAQ</li></ul>
+          <dl class="spec mono"><dt>Стек</dt><dd>React · CSS-анимации</dd><dt>Версии</dt><dd>Десктоп · телефон</dd></dl>
+          <a class="btn work__link" href="works/stomatologiya.html" target="_blank" rel="noopener">Открыть сайт ↗</a>
+        </div>
+        <div class="shot">
+          <a class="browser" href="works/stomatologiya.html" target="_blank" rel="noopener" data-cursor aria-label="Открыть сайт стоматологии">
+            <div class="browser__bar"><div class="browser__dots"><span></span><span></span><span></span></div><div class="browser__url">Стоматология без страха</div><div class="browser__hint">Наведите</div></div>
+            <div class="viewport"><img src="assets/shots/stomatologiya-page.jpg" alt="Сайт стоматологии целиком: первый экран, услуги, врачи, цены, отзывы, вопросы" loading="lazy" width="900" height="6913"><i class="progress"></i></div>
+          </a>
+          <div class="phone"><img src="assets/shots/stomatologiya-mobile.jpg" alt="" loading="lazy" width="390" height="844"></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section wrap" id="services" aria-labelledby="services-title">
+    <div class="section__head">
+      <h2 id="services-title" class="display">Что я делаю</h2>
+      <p>Беру проект целиком: от структуры и первого экрана до запуска на домене.</p>
+    </div>
+    <div class="services">
+      <div class="service"><h3 class="display">Лендинги и промо</h3><p>Страница, где каждый экран подводит к заявке. Для запуска продукта, акции, мероприятия или бренда.</p><span class="mono">Landing</span></div>
+      <div class="service"><h3 class="display">Сайты для бизнеса</h3><p>Ресторан, салон, клиника, сервис. Услуги и цены, команда, отзывы, контакты и онлайн-запись.</p><span class="mono">Business</span></div>
+      <div class="service"><h3 class="display">Анимация и 3D</h3><p>Сцены на скролле, интерактив мышью, живые фоны и WebGL. Движение, которое помогает читать сайт.</p><span class="mono">Motion</span></div>
+      <div class="service"><h3 class="display">Адаптив</h3><p>Каждый блок отдельно собран под телефон и планшет. Слежу за весом страницы и скоростью загрузки.</p><span class="mono">Mobile</span></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="process" aria-labelledby="process-title">
+    <div class="section__head">
+      <h2 id="process-title" class="display">Как я работаю</h2>
+      <p>Четыре шага. На каждом вы видите результат и можете внести правки.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Знакомство</h3><p>Обсуждаем задачу, аудиторию и сайты, которые вам нравятся. Я составляю структуру страниц.</p></li>
+      <li><h3>Дизайн</h3><p>Показываю первый экран и общий стиль. Утверждаем направление до начала разработки.</p></li>
+      <li><h3>Разработка</h3><p>Верстаю все блоки, добавляю анимации и собираю версии для телефона и планшета.</p></li>
+      <li><h3>Запуск</h3><p>Подключаю домен и формы заявок, проверяю сайт на устройствах и вношу финальные правки.</p></li>
+    </ol>
+  </section>
+
+  <section class="contact wrap" id="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title" class="contact__title display">Обсудим <em>ваш</em> сайт?</h2>
+    <div class="channels">
+      <a class="channel" href="https://t.me/leompi" target="_blank" rel="noopener">
+        <span class="mono">Telegram</span>
+        <span class="channel__value">@leompi</span>
+        <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <div class="channel">
+        <span class="mono">Почта</span>
+        <span class="channel__value" id="email">l.petechinskiy@gmail.com</span>
+        <button class="btn copy" type="button" id="copyEmail">Копировать</button>
+      </div>
+    </div>
+    <footer class="foot mono">
+      <span>© 2026 leompi</span>
+      <span>Этот сайт собран вручную, как и работы выше</span>
+    </footer>
+  </section>
+</main>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const setColor = c => { if (c) root.style.setProperty('--c', c); };
+
+  /* Веер: карточки разлетаются при загрузке и наклоняются за курсором */
+  const deck = document.getElementById('deck');
+  const stage = document.getElementById('deckStage');
+  if (!reduce) {
+    deck.classList.add('stacked');
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => deck.classList.remove('stacked'), 350)));
+  }
+  deck.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mouseenter', () => setColor(card.dataset.c));
+    card.addEventListener('focus', () => setColor(card.dataset.c));
+  });
+  if (fine && !reduce) {
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    addEventListener('pointermove', e => {
+      tx = (e.clientX / innerWidth - .5) * 14;
+      ty = (e.clientY / innerHeight - .5) * -10;
+    }, { passive: true });
+    (function tilt() {
+      cx += (tx - cx) * .06; cy += (ty - cy) * .06;
+      stage.style.transform = `rotateY(${cx}deg) rotateX(${cy}deg)`;
+      requestAnimationFrame(tilt);
+    })();
+  }
+
+  /* Подсветка фона цветом работы в центре экрана */
+  const works = document.querySelectorAll('.work');
+  const hero = document.querySelector('.hero');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) setColor(en.target.dataset.c || '#b9b2a3'); });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  works.forEach(w => io.observe(w));
+  io.observe(hero);
+
+  /* Окно браузера: прокрутка сайта при наведении, на телефоне при появлении */
+  const SPEED = 900; // px в секунду
+  document.querySelectorAll('.browser').forEach(b => {
+    const vp = b.querySelector('.viewport');
+    const img = vp.querySelector('img');
+    const bar = vp.querySelector('.progress');
+    const run = on => {
+      const dist = Math.max(0, img.offsetHeight - vp.offsetHeight);
+      const travel = vp.offsetHeight * .82 - 20;
+      const t = on ? Math.max(1.2, dist / SPEED) : Math.min(1.4, Math.max(.6, dist / 6000));
+      img.style.transitionDuration = bar.style.transitionDuration = t + 's';
+      img.style.transform = on ? `translateY(${-dist}px)` : 'translateY(0)';
+      bar.style.transform = on ? `translateY(${travel}px)` : 'translateY(0)';
+    };
+    if (fine) {
+      b.addEventListener('mouseenter', () => run(true));
+      b.addEventListener('mouseleave', () => run(false));
+      b.addEventListener('focus', () => run(true));
+      b.addEventListener('blur', () => run(false));
+    } else if (!reduce) {
+      new IntersectionObserver(([en]) => run(en.isIntersecting), { threshold: .6 }).observe(vp);
+    }
+  });
+
+  /* Курсор с подписью над окнами */
+  if (fine && !reduce) {
+    const cur = document.querySelector('.cursor');
+    let x = innerWidth / 2, y = innerHeight / 2, px = x, py = y;
+    addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; cur.classList.add('is-on'); }, { passive: true });
+    document.addEventListener('pointerleave', () => cur.classList.remove('is-on'));
+    document.querySelectorAll('[data-cursor]').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('is-big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('is-big'));
+    });
+    (function move() {
+      px += (x - px) * .22; py += (y - py) * .22;
+      cur.style.transform = `translate3d(${px}px, ${py}px, 0)`;
+      requestAnimationFrame(move);
+    })();
+  }
+
+  /* Копирование почты */
+  const btn = document.getElementById('copyEmail');
+  const email = document.getElementById('email');
+  btn.addEventListener('click', () => {
+    const done = () => { btn.textContent = 'Скопировано'; btn.dataset.done = ''; setTimeout(() => { btn.textContent = 'Копировать'; delete btn.dataset.done; }, 2000); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(email); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Выделено, нажмите Ctrl+C'; };
+    try { navigator.clipboard.writeText(email.textContent.trim()).then(done, fallback); } catch (e) { fallback(); }
+  });
+})();
+</script>
+</body>
+</html>
