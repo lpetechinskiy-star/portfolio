@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Портфолио leompi</title>
-<meta name="description" content="Разработка сайтов: лендинги, промо-сайты и сайты для бизнеса с анимацией и адаптивом. Работы: ЧУГУН, Litenergles, ÉLANE, NOIR, стоматология.">
-<meta property="og:title" content="Портфолио leompi">
+<title>Леонид Петечинский — разработка сайтов</title>
+<meta name="description" content="Леонид Петечинский, разработка сайтов: лендинги, промо-сайты и сайты для бизнеса с анимацией и адаптивом. Работы: ЧУГУН, Litenergles, ÉLANE, NOIR, стоматология.">
+<meta property="og:title" content="Леонид Петечинский — разработка сайтов">
 <meta property="og:description" content="Сайты для ресторанов, салонов, клиник и брендов. С характером, анимацией и вниманием к телефону.">
 <meta property="og:image" content="assets/shots/litenergles-cover.jpg">
 <meta name="theme-color" content="#0c0d10">
@@ -101,8 +101,8 @@ a { color: inherit; }
 .logo {
   font-family: var(--f-display);
   font-weight: 800;
-  font-size: 22px;
-  letter-spacing: -.04em;
+  font-size: 20px;
+  letter-spacing: -.03em;
   text-decoration: none;
   font-variation-settings: "SHRP" 100;
   display: inline-flex;
@@ -140,6 +140,9 @@ a { color: inherit; }
 .nav .btn { color: var(--paper); padding: 10px 18px; }
 @media (max-width: 720px) {
   .nav .hide-s { display: none; }
+}
+@media (max-width: 480px) {
+  .logo__last { display: none; }
 }
 
 /* ---------- Первый экран ---------- */
@@ -596,7 +599,7 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="leompi, наверх"><i></i>leompi</a>
+    <a class="logo" href="#top" aria-label="Леонид Петечинский, наверх"><i></i><span>Леонид<span class="logo__last"> Петечинский</span></span></a>
     <nav class="nav" aria-label="Разделы">
       <a class="hide-s" href="#works">Работы</a>
       <a class="hide-s" href="#services">Услуги</a>
@@ -609,6 +612,7 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
 <main id="top">
   <section class="hero wrap" aria-labelledby="hero-title">
     <div class="hero__eyebrow mono">
+      <span>Леонид Петечинский</span>
       <span>Разработка сайтов</span>
       <span class="status">Принимаю заказы</span>
     </div>
@@ -621,7 +625,7 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
 
     <div class="hero__row">
       <div>
-        <p class="hero__lead">Проектирую и разрабатываю сайты для ресторанов, салонов, клиник и брендов. С характером, живой анимацией и аккуратной версией для телефона.</p>
+        <p class="hero__lead">Меня зовут Леонид. Проектирую и разрабатываю сайты для ресторанов, салонов, клиник и брендов. С характером, живой анимацией и аккуратной версией для телефона.</p>
         <div class="hero__cta">
           <a class="btn btn--solid" href="#works">Смотреть работы</a>
           <a class="btn" href="https://t.me/leompi" target="_blank" rel="noopener">Написать в Telegram</a>
@@ -788,7 +792,7 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
       </div>
     </div>
     <footer class="foot mono">
-      <span>© 2026 leompi</span>
+      <span>© 2026 Леонид Петечинский</span>
       <span>Этот сайт собран вручную, как и работы выше</span>
     </footer>
   </section>
