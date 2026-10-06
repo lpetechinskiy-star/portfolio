@@ -6,7 +6,7 @@
 <title>Леонид Петечинский — разработка сайтов</title>
 <meta name="description" content="Леонид Петечинский, разработка сайтов: лендинги, промо-сайты и сайты для бизнеса с анимацией и адаптивом. Работы: ЧУГУН, Litenergles, ÉLANE, NOIR, стоматология.">
 <meta property="og:title" content="Леонид Петечинский — разработка сайтов">
-<meta property="og:description" content="Сайты для ресторанов, салонов, клиник и брендов. С характером, анимацией и вниманием к телефону.">
+<meta property="og:description" content="Сайты для бизнеса и брендов. С характером, анимацией и вниманием к телефону.">
 <meta property="og:image" content="assets/shots/litenergles-cover.jpg">
 <meta name="theme-color" content="#0c0d10">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -207,11 +207,8 @@ a { color: inherit; }
 .deck__stage {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
-  transition: transform .2s linear;
 }
 .card {
-  --x: 0px; --y: 0px; --r: 0deg; --lift: 0px; --s: 1;
   position: absolute;
   left: 50%; top: 50%;
   width: min(56%, 440px);
@@ -221,10 +218,12 @@ a { color: inherit; }
   overflow: hidden;
   background: var(--ink-3);
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08);
-  transform: translate(-50%, -50%) translate3d(var(--x), calc(var(--y) + var(--lift)), 0) rotate(var(--r)) scale(var(--s));
-  transition: transform .9s var(--ease), box-shadow .4s;
+  transform: translate(-50%, -50%);
+  transition: box-shadow .4s;
   text-decoration: none;
   display: block;
+  will-change: transform, filter;
+  backface-visibility: hidden;
 }
 .card__bar {
   display: flex;
@@ -243,8 +242,7 @@ a { color: inherit; }
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .card img { width: 100%; height: calc(100% - 22px); object-fit: cover; object-position: top; }
-.card:hover, .card:focus-visible { --lift: -34px; --s: 1.04; z-index: 30 !important; box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .8), 0 0 0 1px var(--c), 0 0 60px -10px var(--c); }
-.deck.stacked .card { --x: 0px !important; --y: 50px !important; --r: 0deg !important; transition: none; }
+.card:hover, .card:focus-visible { box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .8), 0 0 0 1px var(--c), 0 0 60px -10px var(--c); outline: none; }
 
 /* ---------- Бегущая строка ---------- */
 .ticker {
@@ -625,7 +623,7 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
 
     <div class="hero__row">
       <div>
-        <p class="hero__lead">Меня зовут Леонид. Проектирую и разрабатываю сайты для ресторанов, салонов, клиник и брендов. С характером, живой анимацией и аккуратной версией для телефона.</p>
+        <p class="hero__lead">Меня зовут Леонид. Проектирую и разрабатываю сайты для вашего бизнеса, бренда, продукта или события. С характером, живой анимацией и аккуратной версией для телефона.</p>
         <div class="hero__cta">
           <a class="btn btn--solid" href="#works">Смотреть работы</a>
           <a class="btn" href="https://t.me/leompi" target="_blank" rel="noopener">Написать в Telegram</a>
@@ -635,11 +633,11 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
 
       <div class="deck" id="deck">
         <div class="deck__stage" id="deckStage">
-          <a class="card" href="#w-chugun" data-c="#e8732c" style="--x:-44%;--y:34px;--r:-14deg"><div class="card__bar"><span></span><span></span><span></span><b>ЧУГУН — стейк-хаус</b></div><img src="assets/shots/chugun-cover.jpg" alt="Первый экран сайта стейк-хауса ЧУГУН" width="1200" height="750"></a>
-          <a class="card" href="#w-elane" data-c="#c98aa2" style="--x:-22%;--y:10px;--r:-7deg"><div class="card__bar"><span></span><span></span><span></span><b>ÉLANE — салон красоты</b></div><img src="assets/shots/elane-cover.jpg" alt="Первый экран сайта салона красоты ÉLANE" width="1200" height="750"></a>
-          <a class="card" href="#w-noir" data-c="#c49a5a" style="--x:22%;--y:10px;--r:7deg"><div class="card__bar"><span></span><span></span><span></span><b>NOIR — барбершопы</b></div><img src="assets/shots/noir-cover.jpg" alt="Первый экран сайта сети барбершопов NOIR" width="1200" height="750"></a>
-          <a class="card" href="#w-dent" data-c="#9d8cf2" style="--x:44%;--y:34px;--r:14deg"><div class="card__bar"><span></span><span></span><span></span><b>Стоматология</b></div><img src="assets/shots/stomatologiya-cover.jpg" alt="Первый экран сайта стоматологии" width="1200" height="750"></a>
-          <a class="card" href="#w-lit" data-c="#e0263c" style="--x:0%;--y:0px;--r:0deg;z-index:10"><div class="card__bar"><span></span><span></span><span></span><b>Litenergles — гипербола вкуса</b></div><img src="assets/shots/litenergles-cover.jpg" alt="Первый экран промо-сайта чипсов Litenergles" width="1200" height="750"></a>
+          <a class="card" href="#w-chugun" data-c="#e8732c"><div class="card__bar"><span></span><span></span><span></span><b>ЧУГУН — стейк-хаус</b></div><img src="assets/shots/chugun-cover.jpg" alt="Первый экран сайта стейк-хауса ЧУГУН" width="1200" height="750"></a>
+          <a class="card" href="#w-elane" data-c="#c98aa2"><div class="card__bar"><span></span><span></span><span></span><b>ÉLANE — салон красоты</b></div><img src="assets/shots/elane-cover.jpg" alt="Первый экран сайта салона красоты ÉLANE" width="1200" height="750"></a>
+          <a class="card" href="#w-noir" data-c="#c49a5a"><div class="card__bar"><span></span><span></span><span></span><b>NOIR — барбершопы</b></div><img src="assets/shots/noir-cover.jpg" alt="Первый экран сайта сети барбершопов NOIR" width="1200" height="750"></a>
+          <a class="card" href="#w-dent" data-c="#9d8cf2"><div class="card__bar"><span></span><span></span><span></span><b>Стоматология</b></div><img src="assets/shots/stomatologiya-cover.jpg" alt="Первый экран сайта стоматологии" width="1200" height="750"></a>
+          <a class="card" href="#w-lit" data-c="#e0263c"><div class="card__bar"><span></span><span></span><span></span><b>Litenergles — гипербола вкуса</b></div><img src="assets/shots/litenergles-cover.jpg" alt="Первый экран промо-сайта чипсов Litenergles" width="1200" height="750"></a>
         </div>
       </div>
     </div>
@@ -805,35 +803,67 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const setColor = c => { if (c) root.style.setProperty('--c', c); };
 
-  /* Веер: карточки разлетаются при загрузке и наклоняются за курсором */
+  /* Карусель на первом экране: карточки без остановки идут по кругу */
   const deck = document.getElementById('deck');
   const stage = document.getElementById('deckStage');
-  if (!reduce) {
-    deck.classList.add('stacked');
-    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => deck.classList.remove('stacked'), 350)));
-  }
-  deck.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('mouseenter', () => setColor(card.dataset.c));
-    card.addEventListener('focus', () => setColor(card.dataset.c));
-  });
+  const cards = [...stage.querySelectorAll('.card')];
+  const hero = document.querySelector('.hero');
+  const N = cards.length, STEP = Math.PI * 2 / N;
+  const BASE = Math.PI * 2 / 40; // один оборот за 40 секунд
+  let angle = -(N - 1) * STEP;   // первой впереди стоит последняя карточка
+  let speed = BASE, target = BASE, front = null, heroOn = true, deckOn = true, last = performance.now();
+  const t0 = last;
+
+  const place = now => {
+    const w = stage.clientWidth;
+    const R = w * .36 * (reduce ? 1 : 1 - Math.pow(1 - Math.min(1, (now - t0) / 1600), 3));
+    let best = -2, lead = null;
+    cards.forEach((c, i) => {
+      const th = angle + i * STEP, sn = Math.sin(th), cs = Math.cos(th);
+      const depth = (cs + 1) / 2;
+      const x = sn * R, y = (1 - depth) * -30, sc = .62 + .38 * depth;
+      c.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) perspective(1100px) rotateY(${(-sn * 30).toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+      c.style.zIndex = Math.round(depth * 100);
+      c.style.filter = `brightness(${(.35 + .65 * depth).toFixed(3)})`;
+      if (cs > best) { best = cs; lead = c; }
+    });
+    if (lead !== front) { front = lead; if (heroOn) setColor(front.dataset.c); }
+  };
+  const loop = now => {
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    speed += (target - speed) * .04;
+    angle += speed * dt;
+    if (deckOn) place(now);
+    requestAnimationFrame(loop);
+  };
+  place(performance.now());
+  if (!reduce) requestAnimationFrame(loop);
+  new IntersectionObserver(([en]) => { deckOn = en.isIntersecting; }).observe(deck);
+
+  // При наведении карусель замедляется, но не останавливается
+  deck.addEventListener('mouseenter', () => { target = BASE * .3; });
+  deck.addEventListener('mouseleave', () => { target = BASE; });
+
   if (fine && !reduce) {
     let tx = 0, ty = 0, cx = 0, cy = 0;
     addEventListener('pointermove', e => {
-      tx = (e.clientX / innerWidth - .5) * 14;
-      ty = (e.clientY / innerHeight - .5) * -10;
+      tx = (e.clientX / innerWidth - .5) * 10;
+      ty = (e.clientY / innerHeight - .5) * -6;
     }, { passive: true });
     (function tilt() {
       cx += (tx - cx) * .06; cy += (ty - cy) * .06;
-      stage.style.transform = `rotateY(${cx}deg) rotateX(${cy}deg)`;
+      stage.style.transform = `perspective(1400px) rotateY(${cx.toFixed(2)}deg) rotateX(${cy.toFixed(2)}deg)`;
       requestAnimationFrame(tilt);
     })();
   }
 
-  /* Подсветка фона цветом работы в центре экрана */
+  /* Подсветка фона: на первом экране цвет передней карточки, ниже цвет работы в центре экрана */
   const works = document.querySelectorAll('.work');
-  const hero = document.querySelector('.hero');
   const io = new IntersectionObserver(entries => {
-    entries.forEach(en => { if (en.isIntersecting) setColor(en.target.dataset.c || '#b9b2a3'); });
+    entries.forEach(en => {
+      if (en.target === hero) { heroOn = en.isIntersecting; if (heroOn && front) setColor(front.dataset.c); }
+      else if (en.isIntersecting) setColor(en.target.dataset.c);
+    });
   }, { rootMargin: '-45% 0px -45% 0px' });
   works.forEach(w => io.observe(w));
   io.observe(hero);
