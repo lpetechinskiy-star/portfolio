@@ -161,10 +161,10 @@ a { color: inherit; }
 }
 @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(90, 208, 138, .55); } 70%, 100% { box-shadow: 0 0 0 10px rgba(90, 208, 138, 0); } }
 
-.hero { --h1: clamp(38px, 9.4vw, 150px); }
+.hero { --h1: clamp(38px, 9.4vw, 136px); }
 .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
   column-gap: 40px;
   align-items: start;
 }
@@ -214,7 +214,7 @@ a { color: inherit; }
 .card {
   position: absolute;
   left: 50%; top: 50%;
-  width: min(56%, 440px);
+  width: min(58%, 420px);
   aspect-ratio: 16 / 10.6;
   max-width: 100%;
   border-radius: 12px;
@@ -850,8 +850,9 @@ a.channel:hover .arrow { background: var(--c); border-color: var(--c); color: va
   const t0 = last;
 
   const place = now => {
-    const w = stage.clientWidth;
-    const R = w * .36 * (reduce ? 1 : 1 - Math.pow(1 - Math.min(1, (now - t0) / 1600), 3));
+    const w = stage.clientWidth, cw = cards[0].offsetWidth;
+    // радиус подобран так, чтобы боковые карточки не выходили за свою колонку и не наезжали на текст
+    const R = Math.max(0, (w / 2 - cw * .45) / .95) * (reduce ? 1 : 1 - Math.pow(1 - Math.min(1, (now - t0) / 1600), 3));
     let best = -2, lead = null;
     cards.forEach((c, i) => {
       const th = angle + i * STEP, sn = Math.sin(th), cs = Math.cos(th);
