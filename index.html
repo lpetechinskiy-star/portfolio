@@ -408,9 +408,6 @@ a { color: inherit; }
   width: 100%;
   height: auto;
   transform: translateY(0);
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(.45, .05, .35, 1);
-  transition-duration: 1.2s;
   will-change: transform;
 }
 .viewport::after {
@@ -428,9 +425,6 @@ a { color: inherit; }
   border-radius: 3px;
   background: var(--c);
   z-index: 2;
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(.45, .05, .35, 1);
-  transition-duration: 1.2s;
 }
 
 .phone {
@@ -1039,27 +1033,60 @@ body.is-locked { overflow: hidden; }
   works.forEach(w => io.observe(w));
   io.observe(hero);
 
-  /* Окно браузера: прокрутка сайта при наведении, на телефоне при появлении */
-  const SPEED = 900; // px в секунду
-  document.querySelectorAll('.browser').forEach(b => {
+  /* Окно браузера: сайт плавно листается при наведении (на телефоне при появлении),
+     доезжает до конца, делает паузу и так же плавно возвращается наверх */
+  const CRUISE = 420;   // скорость прокрутки вниз, px/с
+  const BACK = 800;     // скорость подъёма наверх, пока курсор на окне, px/с
+  const RETURN = 1400;  // скорость возврата наверх, когда курсор ушёл, px/с
+  const ACCEL = 3.2;    // как быстро набирается и гасится скорость
+  const PAUSE = 1400;   // пауза внизу и вверху, мс
+  const wins = [...document.querySelectorAll('.browser')].map(b => {
     const vp = b.querySelector('.viewport');
-    const img = vp.querySelector('img');
-    const bar = vp.querySelector('.progress');
-    const run = on => {
-      const dist = Math.max(0, img.offsetHeight - vp.offsetHeight);
-      const travel = vp.offsetHeight * .82 - 20;
-      const t = on ? Math.max(1.2, dist / SPEED) : Math.min(1.4, Math.max(.6, dist / 6000));
-      img.style.transitionDuration = bar.style.transitionDuration = t + 's';
-      img.style.transform = on ? `translateY(${-dist}px)` : 'translateY(0)';
-      bar.style.transform = on ? `translateY(${travel}px)` : 'translateY(0)';
-    };
+    return { b, vp, img: vp.querySelector('img'), bar: vp.querySelector('.progress'), pos: 0, v: 0, on: false, dir: 1, hold: 0 };
+  });
+  let ticking = false, prevT = 0;
+  const step = now => {
+    const dt = Math.min(.05, (now - prevT) / 1000); prevT = now;
+    let busy = false;
+    wins.forEach(w => {
+      const dist = Math.max(0, w.img.offsetHeight - w.vp.offsetHeight);
+      let target;
+      if (w.on) {
+        if (w.hold > now) target = w.pos;
+        else target = w.dir > 0 ? dist : 0;
+        if (w.dir > 0 && dist - w.pos < .5 && w.hold <= now) { w.dir = -1; w.hold = now + PAUSE; }
+        else if (w.dir < 0 && w.pos < .5 && w.hold <= now) { w.dir = 1; w.hold = now + PAUSE; }
+      } else target = 0;
+      const gap = target - w.pos;
+      const max = w.on ? (w.dir > 0 ? CRUISE : BACK) : RETURN;
+      // желаемая скорость: крейсерская, а у цели плавно гасится (тормозной путь)
+      const want = Math.sign(gap) * Math.min(max, Math.sqrt(2 * max * ACCEL * Math.abs(gap)));
+      w.v += (want - w.v) * Math.min(1, ACCEL * dt);
+      w.pos += w.v * dt;
+      if (w.pos < 0) { w.pos = 0; w.v = 0; }
+      if (w.pos > dist) { w.pos = dist; w.v = 0; }
+      w.img.style.transform = `translate3d(0, ${(-w.pos).toFixed(2)}px, 0)`;
+      const travel = w.vp.offsetHeight * .82 - 20;
+      w.bar.style.transform = `translate3d(0, ${(dist ? w.pos / dist * travel : 0).toFixed(2)}px, 0)`;
+      if (w.on || Math.abs(w.v) > .5 || w.pos > .5) busy = true;
+    });
+    if (busy) requestAnimationFrame(step); else ticking = false;
+  };
+  const kick = () => { if (!ticking) { ticking = true; prevT = performance.now(); requestAnimationFrame(step); } };
+  const setOn = (w, on) => {
+    if (w.on === on) return;
+    w.on = on;
+    if (on) { w.dir = 1; w.hold = performance.now() + 250; }
+    kick();
+  };
+  wins.forEach(w => {
     if (fine) {
-      b.addEventListener('mouseenter', () => run(true));
-      b.addEventListener('mouseleave', () => run(false));
-      b.addEventListener('focus', () => run(true));
-      b.addEventListener('blur', () => run(false));
+      w.b.addEventListener('mouseenter', () => setOn(w, true));
+      w.b.addEventListener('mouseleave', () => setOn(w, false));
+      w.b.addEventListener('focus', () => setOn(w, true));
+      w.b.addEventListener('blur', () => setOn(w, false));
     } else if (!reduce) {
-      new IntersectionObserver(([en]) => run(en.isIntersecting), { threshold: .6 }).observe(vp);
+      new IntersectionObserver(([en]) => setOn(w, en.isIntersecting), { threshold: .6 }).observe(w.vp);
     }
   });
 
